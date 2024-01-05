@@ -50,8 +50,13 @@ public class GoodService {
     }
 
     @Transactional
-    public void delete(Long id) {
-        goodRepository.deleteById(id);
+    public boolean delete(Long id) {
+        if (goodRepository.existsById(id)) {
+            goodRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

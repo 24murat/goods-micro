@@ -56,7 +56,7 @@ public class GoodController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteGood(@PathVariable Long id) {
-        goodService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        boolean isDeleted = goodService.delete(id);
+        return isDeleted ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
