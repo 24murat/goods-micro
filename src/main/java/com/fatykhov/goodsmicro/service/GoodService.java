@@ -37,8 +37,17 @@ public class GoodService {
 
     @Transactional
     public GoodDto save(GoodDto goodDto) {
-        Good good = goodRepository.save(goodMapper.fromDto(goodDto));
-        return goodMapper.toDto(good);
+        Optional<Good> existingGood = goodRepository.findByNameAndType(goodDto.name(), goodDto.type());
+        if (existingGood.isPresent()) {
+            Good good = existingGood.get();
+            good.setQuantity(good.getQuantity() + goodDto.quantity());
+            Good savedGood = goodRepository.save(good);
+            return goodMapper.toDto(savedGood);
+        } else {
+            Good good = goodMapper.fromDto(goodDto);
+            Good savedGood = goodRepository.save(good);
+            return goodMapper.toDto(savedGood);
+        }
     }
 
     @Transactional
