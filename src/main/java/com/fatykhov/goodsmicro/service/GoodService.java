@@ -30,9 +30,14 @@ public class GoodService {
                 .toList();
     }
 
-    public GoodDto findOne(Long id) {
-        Optional<Good> foundGood = goodRepository.findById(id);
-        return foundGood.map(goodMapper::toDto).orElse(null);
+    public GoodDto findById(Long id) {
+        Optional<Good> existingGood = goodRepository.findById(id);
+        if (existingGood.isPresent()) {
+            Good good = existingGood.get();
+            return goodMapper.toDto(good);
+        } else {
+            return null;
+        }
     }
 
     @Transactional

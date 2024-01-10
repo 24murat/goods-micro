@@ -31,7 +31,7 @@ public class GoodController {
 
     @GetMapping("/{id}")
     public GoodDto getGoodById(@PathVariable Long id) {
-        return goodService.findOne(id);
+        return goodService.findById(id);
     }
 
     @PostMapping
