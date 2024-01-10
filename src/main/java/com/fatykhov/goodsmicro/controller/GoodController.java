@@ -3,8 +3,6 @@ package com.fatykhov.goodsmicro.controller;
 import com.fatykhov.goodsmicro.dto.GoodDto;
 import com.fatykhov.goodsmicro.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,36 +25,27 @@ public class GoodController {
     }
 
     @GetMapping
-    public ResponseEntity<List<GoodDto>> getAllGoods() {
-        List<GoodDto> goods = goodService.findAll();
-        return new ResponseEntity<>(goods, HttpStatus.OK);
+    public List<GoodDto> getAllGoods() {
+        return goodService.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GoodDto> getGoodById(@PathVariable Long id) {
-        GoodDto good = goodService.findOne(id);
-        return good != null ?
-                new ResponseEntity<>(good, HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public GoodDto getGoodById(@PathVariable Long id) {
+        return goodService.findOne(id);
     }
 
     @PostMapping
-    public ResponseEntity<GoodDto> createGood(@RequestBody GoodDto goodDto) {
-        GoodDto createdGood = goodService.save(goodDto);
-        return new ResponseEntity<>(createdGood, HttpStatus.CREATED);
+    public GoodDto createGood(@RequestBody GoodDto goodDto) {
+        return goodService.save(goodDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<GoodDto> updateGood(@PathVariable Long id, @RequestBody GoodDto updatedGoodDto) {
-        GoodDto updatedGood = goodService.update(id, updatedGoodDto);
-        return updatedGood != null ?
-                new ResponseEntity<>(updatedGood, HttpStatus.OK) :
-                new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public GoodDto updateGood(@PathVariable Long id, @RequestBody GoodDto updatedGoodDto) {
+        return goodService.update(id, updatedGoodDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGood(@PathVariable Long id) {
-        boolean isDeleted = goodService.delete(id);
-        return isDeleted ? new ResponseEntity<>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public void deleteGood(@PathVariable Long id) {
+        goodService.delete(id);
     }
 }
