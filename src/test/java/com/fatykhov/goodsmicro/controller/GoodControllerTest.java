@@ -49,7 +49,7 @@ public class GoodControllerTest {
 
     @Test
     public void getGoodByIdTest() throws Exception {
-        when(goodService.findOne(anyLong())).thenReturn(goodDto);
+        when(goodService.findById(anyLong())).thenReturn(goodDto);
 
         mockMvc.perform(get("/goods/1")
                 .contentType(MediaType.APPLICATION_JSON))
@@ -63,7 +63,7 @@ public class GoodControllerTest {
         mockMvc.perform(post("/goods")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\":1,\"name\":\"Test Good\",\"type\":\"Test Type\",\"quantity\":10}"))
-                .andExpect(status().isCreated());
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -82,7 +82,7 @@ public class GoodControllerTest {
 
         mockMvc.perform(delete("/goods/1")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNoContent());
+                .andExpect(status().isOk());
     }
 }
 

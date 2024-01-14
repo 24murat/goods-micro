@@ -44,7 +44,7 @@ public class GoodServiceTest {
         good.setId(1L);
         when(goodRepository.findById(1L)).thenReturn(Optional.of(good));
         when(goodMapper.toDto(good)).thenReturn(new GoodDto(1L, "name", "type", 10));
-        assertNotNull(goodService.findOne(1L));
+        assertNotNull(goodService.findById(1L));
     }
 
     @Test
