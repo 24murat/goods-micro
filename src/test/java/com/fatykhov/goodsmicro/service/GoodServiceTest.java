@@ -35,7 +35,12 @@ public class GoodServiceTest {
 
     @Test
     public void testFindAll() {
-        when(goodRepository.findAll()).thenReturn(List.of(new Good()));
+        List<Good> list = List.of(new Good());
+        List<GoodDto> dtoList = list.stream()
+                .map(goodMapper::toDto)
+                .toList();
+        when(goodRepository.findAll()).thenReturn(list);
+        when(goodMapper.toDtoList(list)).thenReturn(dtoList);
         assertEquals(1, goodService.findAll().size());
     }
 

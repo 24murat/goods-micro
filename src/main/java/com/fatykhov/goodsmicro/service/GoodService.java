@@ -27,9 +27,7 @@ public class GoodService {
 
     public List<GoodDto> findAll() {
         List<Good> goods = goodRepository.findAll();
-        return goods.stream()
-                .map(goodMapper::toDto)
-                .toList();
+        return goodMapper.toDtoList(goods);
     }
 
     public GoodDto findById(Long id) {
