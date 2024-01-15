@@ -2,6 +2,7 @@ package com.fatykhov.goodsmicro.mapper;
 
 import com.fatykhov.goodsmicro.dto.GoodDto;
 import com.fatykhov.goodsmicro.entity.Good;
+import com.fatykhov.goodsmicro.entity.GoodType;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -13,7 +14,7 @@ public class GoodMapperTest {
 
     @Test
     public void testFromDto() {
-        GoodDto goodDto = new GoodDto(1L, "name", "type", 10);
+        GoodDto goodDto = new GoodDto(1L, "name", GoodType.LAPTOP, 10);
         Good good = goodMapper.fromDto(goodDto);
         assertEquals(goodDto.id(), good.getId());
         assertEquals(goodDto.name(), good.getName());
@@ -23,7 +24,7 @@ public class GoodMapperTest {
 
     @Test
     public void testToDto() {
-        Good good = new Good(1L, "name", "type", 10);
+        Good good = new Good(1L, "name", GoodType.LAPTOP, 10);
         GoodDto goodDto = goodMapper.toDto(good);
         assertEquals(good.getId(), goodDto.id());
         assertEquals(good.getName(), goodDto.name());

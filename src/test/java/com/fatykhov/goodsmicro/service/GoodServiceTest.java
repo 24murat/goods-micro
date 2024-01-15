@@ -2,6 +2,7 @@ package com.fatykhov.goodsmicro.service;
 
 import com.fatykhov.goodsmicro.dto.GoodDto;
 import com.fatykhov.goodsmicro.entity.Good;
+import com.fatykhov.goodsmicro.entity.GoodType;
 import com.fatykhov.goodsmicro.mapper.GoodMapper;
 import com.fatykhov.goodsmicro.repository.GoodRepository;
 import org.junit.jupiter.api.Test;
@@ -43,13 +44,13 @@ public class GoodServiceTest {
         Good good = new Good();
         good.setId(1L);
         when(goodRepository.findById(1L)).thenReturn(Optional.of(good));
-        when(goodMapper.toDto(good)).thenReturn(new GoodDto(1L, "name", "type", 10));
+        when(goodMapper.toDto(good)).thenReturn(new GoodDto(1L, "name", GoodType.LAPTOP, 10));
         assertNotNull(goodService.findById(1L));
     }
 
     @Test
     public void testSave() {
-        GoodDto goodDto = new GoodDto(1L, "name", "type", 10);
+        GoodDto goodDto = new GoodDto(1L, "name", GoodType.LAPTOP, 10);
         Good good = new Good();
         when(goodMapper.fromDto(goodDto)).thenReturn(good);
         when(goodRepository.save(good)).thenReturn(good);
@@ -59,7 +60,7 @@ public class GoodServiceTest {
 
     @Test
     public void testUpdate() {
-        GoodDto goodDto = new GoodDto(1L, "name", "type", 10);
+        GoodDto goodDto = new GoodDto(1L, "name", GoodType.LAPTOP, 10);
         Good good = new Good();
         when(goodMapper.fromDto(goodDto)).thenReturn(good);
         when(goodRepository.save(good)).thenReturn(good);

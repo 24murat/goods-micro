@@ -1,6 +1,7 @@
 package com.fatykhov.goodsmicro.controller;
 
 import com.fatykhov.goodsmicro.dto.GoodDto;
+import com.fatykhov.goodsmicro.entity.GoodType;
 import com.fatykhov.goodsmicro.service.GoodService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ public class GoodControllerTest {
 
     @BeforeEach
     public void setup() {
-        goodDto = new GoodDto(1L, "Test Good", "Test Type", 10);
+        goodDto = new GoodDto(1L, "Test Good", GoodType.LAPTOP, 10);
     }
 
     @Test
@@ -62,7 +63,7 @@ public class GoodControllerTest {
 
         mockMvc.perform(post("/goods")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"name\":\"Test Good\",\"type\":\"Test Type\",\"quantity\":10}"))
+                .content("{\"id\":1,\"name\":\"Test Good\",\"type\":\"LAPTOP\",\"quantity\":10}"))
                 .andExpect(status().isOk());
     }
 
@@ -72,7 +73,7 @@ public class GoodControllerTest {
 
         mockMvc.perform(put("/goods/1")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\":1,\"name\":\"Test Good\",\"type\":\"Test Type\",\"quantity\":10}"))
+                .content("{\"id\":1,\"name\":\"Test Good\",\"type\":\"LAPTOP\",\"quantity\":10}"))
                 .andExpect(status().isOk());
     }
 
